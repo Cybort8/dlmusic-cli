@@ -46,6 +46,8 @@ def load_config() -> dict:
                 cfg.update(data)
         except Exception as e:
             print(f"Error loading config: {e}")
+    if "cache_dir" not in cfg:
+        cfg["cache_dir"] = str(get_cache_dir())
     return cfg
 
 def save_config(cfg: dict) -> None:

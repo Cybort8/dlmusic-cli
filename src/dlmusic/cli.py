@@ -45,6 +45,9 @@ def main_cli(args=None):
         cfg["cookie_file"] = parsed.cookie_file
     cfg["lyrics"] = not parsed.no_lyrics
 
+    cache_dir = cfg.get("cache_dir", str(Path.home() / ".cache" / "dlmusic"))
+    Path(cache_dir).mkdir(parents=True, exist_ok=True)
+
     yt = YouTubeEngine()
     sp = SpotifyEngine()
 
@@ -52,14 +55,14 @@ def main_cli(args=None):
         print(f"\n[dlmusic] Procesando: {url}")
         plat = detect_platform(url)
         engine = sp if plat == "spotify" else yt
-        
+
         success = engine.download(
             url=url,
             output_dir=cfg["music_dir"],
             format_str=cfg["format"],
             bitrate=cfg["bitrate"],
             use_archive=cfg["use_archive"],
-            archive_path=str(Path(cfg.get("cache_dir", "~/.cache/dlmusic")) / f"{plat}-archive.txt"),
+            archive_path=str(Path(cache_dir) / f"{plat}-archive.txt"),
             cookies_browser=cfg["cookies_browser"],
             cookie_file=cfg["cookie_file"],
             lyrics=cfg["lyrics"],
