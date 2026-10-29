@@ -9,7 +9,7 @@ PROG="$(basename "$0")"
 VERSION="2.0.0"
 
 # ---------------------------------------------------------------- defaults ---
-MUSIC_DIR="${DLMUSIC_DIR:-$HOME/Music}"
+MUSIC_DIR="${DLMUSIC_DIR:-$HOME/Music/Dilan}"
 FORMAT="${DLMUSIC_FORMAT:-m4a}"
 BITRATE="${DLMUSIC_BITRATE:-auto}"
 JOBS="${DLMUSIC_JOBS:-$(nproc 2>/dev/null || echo 4)}"
