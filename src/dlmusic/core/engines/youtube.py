@@ -47,7 +47,7 @@ class YouTubeEngine(BaseEngine):
 
         deno_path = find_binary("deno")
         if deno_path:
-            ydl_opts['js_runtimes'] = ['deno']
+            ydl_opts['js_runtimes'] = {'deno': {'path': deno_path}}
 
         if use_archive and archive_path:
             os.makedirs(os.path.dirname(archive_path), exist_ok=True)
