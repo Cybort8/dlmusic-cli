@@ -25,7 +25,7 @@ Repo root: this folder (`DLMUSIC/`). Python package `dlmusic` (v2.1.0) + legacy 
 - Tests pollute duplicate archives in `~/.cache/dlmusic/`; clean up with `rm -rf ~/.cache/dlmusic /tmp/opencode/t*` afterwards.
 
 ## Gotchas (verified)
-- `tkinter` is not installed on the dev host (Python 3.14 without tk); build/CI install it. GUI cannot run locally until `sudo pacman -S tk`.
+- `tkinter` 8.6 is now installed (via `pacman -S tk`); GUI runs and builds locally. CI still installs `python3-tk`/`tk-dev` per OS.
 - `yt-dlp` needs a JS runtime (Deno); `find_binary("deno")` returns the path or falls back to `deno` from PATH. In CI, bundle deno into `assets/`.
 - spotdl 4.5.2+ rejects `--embed-metadata`/`--embed-cover` (embeds by default); no `--lyrics auto` (valid: genius musixmatch azlyrics synced); output template uses `{output-ext}`, not `{ext}`.
 - yt-dlp `js_runtimes` must be a dict: `{'deno': {'path': ...}}`.
