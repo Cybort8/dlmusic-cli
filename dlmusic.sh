@@ -1,38 +1,18 @@
 #!/usr/bin/env bash
 #
-# dlmusic — descarga canciones/playlists en la mejor calidad posible
-# desde Spotify, YouTube, YouTube Music, SoundCloud, Bandcamp y más.
+# dlmusic — Wrapper legacy que delega en el core Python
 #
 set -uo pipefail
 
-PROG="$(basename "$0")"
-VERSION="2.0.0"
-
-# ---------------------------------------------------------------- defaults ---
-MUSIC_DIR="${DLMUSIC_DIR:-$HOME/Music/Dilan}"
-FORMAT="${DLMUSIC_FORMAT:-m4a}"
-BITRATE="${DLMUSIC_BITRATE:-auto}"
-JOBS="${DLMUSIC_JOBS:-$(nproc 2>/dev/null || echo 4)}"
-THREADS="${DLMUSIC_THREADS:-4}"
-ENGINE="${DLMUSIC_ENGINE:-auto}"
-RETRIES="${DLMUSIC_RETRIES:-5}"
-LYRICS="${DLMUSIC_LYRICS:-yes}"
-COOKIES_BROWSER="${DLMUSIC_COOKIES_BROWSER:-}"
-COOKIE_FILE="${DLMUSIC_COOKIE_FILE:-}"
-USE_ARCHIVE=yes
-INTERACTIVE=0
-
-CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/dlmusic"
-YTDLP_ARCHIVE="$CACHE_DIR/ytdlp-archive.txt"
-SPOTDL_ARCHIVE="$CACHE_DIR/spotdl-archive.txt"
-LOG_DIR="$CACHE_DIR/logs"
-
-urls=()
-
-# ------------------------------------------------------------------- color ---
-if [[ -t 1 ]]; then
-  C_RESET=$'\033[0m'; C_BOLD=$'\033[1m'; C_DIM=$'\033[2m'
-  C_GREEN=$'\033[32m'; C_YELLOW=$'\033[33m'; C_RED=$'\033[31m'; C_CYAN=$'\033[36m'
+if command -v dlmusic &>/dev/null; then
+  exec dlmusic "$@"
+elif python3 -c "import dlmusic" &>/dev/null; then
+  exec python3 -m dlmusic "$@"
+else
+  echo "Error: dlmusic no está instalado. Ejecute: pip install ." >&2
+  exit 1
+fi
+EEN=$'\033[32m'; C_YELLOW=$'\033[33m'; C_RED=$'\033[31m'; C_CYAN=$'\033[36m'
 else
   C_RESET=""; C_BOLD=""; C_DIM=""; C_GREEN=""; C_YELLOW=""; C_RED=""; C_CYAN=""
 fi

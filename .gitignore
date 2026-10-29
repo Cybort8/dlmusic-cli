@@ -1,0 +1,12 @@
+/dist/
+/build/dlmusic/
+/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.agents/
+skills-lock.json
+*.egg-info/
+# Keep spec templates under build/, ignore only generated ones at root
+/dlmusic.spec

@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dlmusic"
+version = "2.1.0"
+description = "Descarga canciones y playlists en la mejor calidad desde Spotify, YouTube, SoundCloud y Bandcamp"
+readme = "README.md"
+authors = [
+    { name = "Dilan / Cybort8" }
+]
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "yt-dlp>=2025.0.0",
+    "spotdl>=4.5.0",
+    "platformdirs>=4.0.0",
+    "customtkinter>=5.2.0",
+    "mutagen>=1.45.0",
+    "syncedlyrics>=1.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.3.0",
+    "mypy>=1.8.0",
+    "pyinstaller>=6.0.0"
+]
+
+[project.scripts]
+dlmusic = "dlmusic.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["dlmusic*"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/dlmusic/__main__.py" = ["BLE001"]
+"src/dlmusic/config.py" = ["BLE001"]
+"src/dlmusic/core/engines/spotify.py" = ["BLE001"]
+"src/dlmusic/core/engines/youtube.py" = ["BLE001"]
+"src/dlmusic/launcher.py" = ["BLE001"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
